@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h> 
 #include <pthread.h>
+#include <stdbool.h>
 
-#define M_THREADS 5 //total de threads a serem criadas
-#define N_NUMEROS 113 //quantidade de números no meu vetor
+#define M_THREADS 6 //total de threads a serem criadas
+#define N_NUMEROS 25 //quantidade de números no meu vetor
 
 int vetor[N_NUMEROS]; // vetor a ser manipulado pelas 'M' threads
+int vetor_original[N_NUMEROS]; // vetor que mantem o mesmo valor para validarmos as operações feitas
 
 //cria a estrutura de dados para armazenar os argumentos da thread
 typedef struct {
@@ -35,7 +37,31 @@ void * eleva_ao_quadrado (void * arg){
 
 
 
+void inicializa_vetor(){
+    printf("Vetor original:\n");
+    // inicializa o vetor
+    for(int w=1; w<=N_NUMEROS; w++){
+        vetor_original[w-1] = w;
+        vetor[w-1] = w;
 
+    }
+    // printa o vetor
+    for(int i=0; i<N_NUMEROS; i++){
+        printf("%d\n", vetor_original[i]);
+    }
+}
+
+bool valida_resultado(){
+    for(int i = 0; i<N_NUMEROS; i++){
+        if(vetor[i]/vetor_original[i] != vetor_original[i]){
+            printf("ERRO %d² != %d\n", vetor_original[i], vetor[i]);
+            return false;
+        }
+    }
+
+    printf("Nenhum erro encontrado, vetor validado com sucesso!\n");
+    return true;
+}
 
 // funcao principal                 
 int main(int argc, char *argv[]){
@@ -45,14 +71,8 @@ int main(int argc, char *argv[]){
     // atribuição de tarefas: define a quantidade de elementos do vetor que cada thread elevará ao quadrado
     quantidade_de_tarefas = N_NUMEROS/M_THREADS;
 
-    printf("Vetor original:\n");
-    for(int w=1; w<=N_NUMEROS; w++){
-        vetor[w-1] = w;
-    }
-    
-    for(int i=0; i<N_NUMEROS; i++){
-        printf("%d\n", vetor[i]);
-    }
+    inicializa_vetor();
+
     printf("\n\n");
     t_Args *args; //receberá os argumentos para a thread
     for(int i=0; i<M_THREADS; i++){
@@ -82,13 +102,14 @@ int main(int argc, char *argv[]){
         } 
     }
     
-    printf("Vetor elevado:\n");
-    for (int i=0; i<N_NUMEROS; i++) {
-        printf("%d\n", vetor[i]);
-            
+    if(valida_resultado()){
+        printf("Vetor elevado:\n");
+        for (int i=0; i<N_NUMEROS; i++) {
+            printf("%d\n", vetor[i]);
+                
+        }
     }
-
-
+   
 
     // Thread principal terminou
     pthread_exit(NULL);
