@@ -3,8 +3,8 @@
 #include <pthread.h>
 #include <stdbool.h>
 
-#define M_THREADS 100 //total de threads a serem criadas
-#define N_NUMEROS 50 //quantidade de números no meu vetor
+#define M_THREADS 15 //total de threads a serem criadas
+#define N_NUMEROS 13 //quantidade de números no meu vetor
 
 int vetor[N_NUMEROS]; // vetor a ser manipulado pelas 'M' threads
 int vetor_original[N_NUMEROS]; // vetor que mantem o mesmo valor para validarmos as operações feitas
