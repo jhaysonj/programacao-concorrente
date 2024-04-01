@@ -1,0 +1,7 @@
+Gera o arquivo de vetores aleatórios:
+	./vetor_aleatorio 10 > arquivo_de_numeros_aleatorios.txt
+	./vetor_aleatorio (tamanho_do_array)  > arquivo_de_numeros_aleatorios.txt
+
+Executa a atividade 2:
+	./atividade_2 4 < arquivo_de_numeros_aleatorios.txt
+	./atividade_2 (numero_de_threads) < arquivo_de_numeros_aleatorios.txt
