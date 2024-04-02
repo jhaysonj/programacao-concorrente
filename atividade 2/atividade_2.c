@@ -17,23 +17,17 @@ void *soma(void *arg) {
     
     float soma = 0;
 
-    /*
-    // tmp, apenas para fins de teste    
-    printf("Thread %d\n", args->idThread);
-    printf("Index_inicial %d\n", args->index_inicial);
-    printf("Index_final %d\n", args->index_final);
-    */
-
     // Calcula a soma parcial dos elementos atribuídos à thread
     for(int i = args->index_inicial; i < args->index_final; i++) {
         soma += vetor[i];
     }
 
-    // Armazena a soma parcial na estrutura da thread
-    args->soma_parcial = soma;
+    // Aloca memória para o valor de soma parcial e atribui o valor calculado
+    float *soma_parcial = (float *)malloc(sizeof(float));
+    *soma_parcial = soma;
 
-    // Termina a execução da thread
-    pthread_exit(NULL);
+    // Retorna o valor de soma parcial usando pthread_exit
+    pthread_exit((void *)soma_parcial);
 }
 
 int main(int argc, char *argv[]) {
@@ -93,8 +87,10 @@ int main(int argc, char *argv[]) {
     // Aguarda todas as threads terminarem e calcula a soma total
     float soma_total = 0;
     for (int i = 0; i < m_threads; i++) {
-        pthread_join(tid_sistema[i], NULL);
-        soma_total += args[i].soma_parcial;
+        float *soma_parcial;
+        pthread_join(tid_sistema[i], (void **)&soma_parcial);
+        soma_total += *soma_parcial;
+        free(soma_parcial); // Libera a memória alocada para o valor de soma parcial
     }
 
 #ifdef TESTE
