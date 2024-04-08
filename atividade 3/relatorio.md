@@ -97,6 +97,10 @@ Assim como o recomendado, realizei a entrega desse trabalho dividindo-o em algum
 |               | A_3000x3000 . B_3000x3000| 112s                   |
 
 
+## Configuração da Máquina
+CPU: AMD Ryzen 7 3800X (16) @ 4.200GHz 
+GPU: NVIDIA GeForce RTX 3060 Lite Hash Rate 
+Memory: 23941MiB 
 
 
 # Conclusão
