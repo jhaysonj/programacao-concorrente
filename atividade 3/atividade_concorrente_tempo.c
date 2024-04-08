@@ -220,7 +220,7 @@ int main(int argc, char *argv[]) {
     
     // finaliza a contagem do tempo (em segundos)
     clock_gettime(CLOCK_MONOTONIC, &end);
-    double elapsedTime = (end.tv_sec - start.tv_sec);     
+    double elapsedTime = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1.0e9; // segundos com precisão decimal 
     printf("Tempo de execução: %f segundos\n", elapsedTime);
 
 

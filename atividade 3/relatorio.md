@@ -4,14 +4,21 @@
 
 # Modo de Execução e Descrição dos Arquivos
    
-   ./gera_matriz_binario 3000 3000 matrizA_3000x3000.bin --> gera a matriz com `I=linhas` e ` J=colunas`, respectivamente, e joga a saída para o arquivo `matrizA_3000x3000.bin`.
-
+   ./gera_matriz_binario 500 500 matrizA_500x500.bin --> gera a matriz com `I=linhas` e ` J=colunas`, respectivamente, e joga a saída para o arquivo `matrizA_500x500.bin`.
+<br>
    ./atividade_sequencial_tempo matrizA_1000x1000.bin matrizB_1000x1000.bin  --> realiza a multiplicação da matriz A.B (de forma sequencial), marcando o tempo de execução.
-    
+<br>    
    ./atividade_concorrente_tempo matrizA_1000x1000.bin matrizB_1000x1000.bin  7 --> realiza multiplicação da matriz A.B de forma concorrente usando 7 threads, onde cada thread é responsável por calcular uma linha da matriz resultante. O programa também marca o tempo de execução.
-    
+<br>    
    matrizA_IxJ.bin -> I = linha; J = coluna
    matrizB_IxJ.bin -> I = linha; J = coluna
+<br>
+   O arquivo `atividade_sequencial_tempo_output` faz o mesmo o programa `atividade_sequencial_tempo` mas na versão output o programa a única coisa que é printada é o tempo de execução em segundos. O mesmo vale para os arquivos `atividade_concorrente_tempo_output` e `atividade_concorrente_tempo`
+<br>
+   O arquivos `tempo_exec_8_500x500.txt` armazena o tempo de execução/média da multiplicação das matrizes A.B (de proporção 500x500), usando oito threads. No arquivo possuimos 4 linhas, as três primeiras linhas são marcações do tempo, a quarta linha é a média dessas três execuções. O mesmo vale para os programas `tempo_exec_4_500x500.txt`, `tempo_exec_2_500x500.txt` e `tempo_exec_1_500x500.txt`
+<br>
+   O arquivo `tempo_exec_sequencial_500x500.txt` armazena o tempo de execução/média da multiplicação das matrizes A.B (de proporção 500x500). No arquivo possuimos 4 linhas, as três primeiras linhas são marcações do tempo, a quarta linha é a média dessas três execuções. O mesmo vale para os programas `tempo_exec_sequencial_1000x1000.txt` e `tempo_exec_sequencial_2000x2000.txt`
+
 
 
 
@@ -36,65 +43,50 @@ Assim como o recomendado, realizei a entrega desse trabalho dividindo-o em algum
 
 
 4) Implementação da marcação do tempo (código concorrente)
-    Adaptei o código sequencial de nome `atividade_concorrente.c` para marcar o tempo de execução, o arquivo que marca o tempo é `atividade_concorrente_tempo.c`
+    Adaptei o código concorrente de nome `atividade_concorrente.c` para marcar o tempo de execução, o arquivo que marca o tempo é `atividade_concorrente_tempo.c`
+
+
+ ## Concorrente 8 threads
+ | Proporção Matricial              |Primeira Execução | Segunda Execução | terceira Execução | Tempo médio das Execuções |
+|------------------------------------|------------------------------|--------------------|--------------------|--------------------|
+|  A_500x500 . B_500x500        |     0.085104          | 0.063207  | 0.054768 | 0.067693 |
+|  A_1000x1000 . B_1000x1000    |     0.674220        | 0.701084  | 0.636321 | 0.670541|
+|   A_2000x2000 . B_2000x2000   |     3.517383        | 3.813261 | 3.836993  | 3.722545|
+
+
+ ## Concorrente 4 threads
+ | Proporção Matricial              |Primeira Execução | Segunda Execução | Terceira Execução | Tempo médio das Execuções |
+|------------------------------------|------------------------------|--------------------|--------------------|--------------------|
+|  A_500x500 . B_500x500        |   0.103148   |0.102794  | 0.102399 | 0.102780
+|  A_1000x1000 . B_1000x1000    |  0.935894    | 0.895576 | 0.952828 |0.928099
+|   A_2000x2000 . B_2000x2000   |   7.294940   | 7.396435 | 7.528636 |7.406670
+
+
+ ## Concorrente 2 threads
+ | Proporção Matricial              |Primeira Execução | Segunda Execução | Terceira Execução | Tempo médio das Execuções |
+|------------------------------------|------------------------------|--------------------|--------------------|--------------------|
+|  A_500x500 . B_500x500        |   0.201540     |  0.204210 |  0.211041 | 0.205597 | 
+|  A_1000x1000 . B_1000x1000    |   1.833039     |  1.816652 |  1.922438 | 1.857376 |
+|   A_2000x2000 . B_2000x2000   |  14.652272     | 14.480858 | 14.415987 | 14.51637 |
+
+
+ ## Concorrente 1 thread
+ | Proporção Matricial              |Primeira Execução | Segunda Execução | terceira Execução | Tempo médio das Execuções |
+|------------------------------------|------------------------------|--------------------|--------------------|--------------------|
+|  A_500x500 . B_500x500        |  0.401758    | 0.412664  |0.400439  | 0.404953 |
+|  A_1000x1000 . B_1000x1000    |   3.537170   | 3.586013  |3.434316  | 3.519166 |
+|   A_2000x2000 . B_2000x2000   |   27.749604  | 28.130647 |27.487149 | 27.789133 |
 
 
 
-## concorrente
-
-| Implementação | Proporção Matricial              | Tempo de execução médio <br> com 8 threads 
-|---------------|---------------------------|------------------------------|
-| Concorrente <br>   | A_1000x1000 . B_1000x1000 |  1s    |
-|               | A_1500x1500 . B_1500x1500|                 2s             |
-|               | A_2000x2000 . B_2000x2000|  6s           |
-|               | A_3000x3000 . B_3000x3000|          19s           |
-
-
-
-| Implementação | Proporção Matricial              | Tempo de execução médio <br> com 7 threads 
-|---------------|---------------------------|------------------------------|
-| Concorrente <br>   | A_1000x1000 . B_1000x1000 |    1s  |
-|               | A_1500x1500 . B_1500x1500|      3s                       |
-|               | A_2000x2000 . B_2000x2000|   6s          |
-|               | A_3000x3000 . B_3000x3000|     21s                |
-
-
-| Implementação | Proporção Matricial              | Tempo de execução médio <br> com 4 threads 
-|---------------|---------------------------|------------------------------|
-| Concorrente <br>   | A_1000x1000 . B_1000x1000 |   1s   |
-|               | A_1500x1500 . B_1500x1500|         5s                    |
-|               | A_2000x2000 . B_2000x2000|     9s        |
-|               | A_3000x3000 . B_3000x3000|     35s                |
-
-
-
-
-
-| Implementação | Proporção Matricial              | Tempo de execução médio <br> com 2 threads 
-|---------------|---------------------------|------------------------------|
-| Concorrente <br>   | A_1000x1000 . B_1000x1000 |   2s   |
-|               | A_1500x1500 . B_1500x1500|        7s                     |
-|               | A_2000x2000 . B_2000x2000|       16s      |
-|               | A_3000x3000 . B_3000x3000|       69s              |
-
-
-
-
-| Implementação | Proporção Matricial              | Tempo de execução médio <br> com 1 thread 
-|---------------|---------------------------|------------------------------|
-| Concorrente <br>   | A_1000x1000 . B_1000x1000 |   4s   |
-|               | A_1500x1500 . B_1500x1500|        14s                     |
-|               | A_2000x2000 . B_2000x2000|      30s       |
-|               | A_3000x3000 . B_3000x3000|         136s            |
 
 ## sequencial
-
-| Implementação | Proporção Matricial              | Tempo de execução médio |
-|---------------|---------------------------|------------------------------|
-| Sequencial    | A_1000x1000 . B_1000x1000|        3s           |
-|               | A_1500x1500 . B_1500x1500|         9s                   |
-|               | A_2000x2000 . B_2000x2000|    24s                         |
-|               | A_3000x3000 . B_3000x3000| 112s                   |
+ | Proporção Matricial              |Primeira Execução | Segunda Execução | terceira Execução | Tempo médio das Execuções |
+|------------------------------------|------------------------------|--------------------|--------------------|--------------------|
+|  A_500x500 . B_500x500        |       0.333889   |  0.336449   |   0.334188  | 0.334842 |
+|  A_1000x1000 . B_1000x1000    |    2.670733      |  2.672200   |   2.668152  | 2.668947 |
+|   A_2000x2000 . B_2000x2000   |      23.418286   | 23.322102   |  23.700522  | 23.480303 |
+ |
 
 
 ## Configuração da Máquina
