@@ -80,7 +80,7 @@ Assim como o recomendado, realizei a entrega desse trabalho dividindo-o em algum
 
 
 
-## sequencial
+## Sequencial
  | Proporção Matricial              |Primeira Execução | Segunda Execução | terceira Execução | Tempo médio das Execuções |
 |------------------------------------|------------------------------|--------------------|--------------------|--------------------|
 |  A_500x500 . B_500x500        |       0.333889   |  0.336449   |   0.334188  | 0.334842 |
@@ -94,6 +94,9 @@ CPU: AMD Ryzen 7 3800X (16) @ 4.200GHz
 GPU: NVIDIA GeForce RTX 3060 Lite Hash Rate 
 Memory: 23941MiB 
 
+## Aceleração e Eficiência
+Os dados obtidos durante a execução concorrente foram utilizados no colab para plotar o gráfico de aceleração e eficiência.
+https://colab.research.google.com/drive/1KW-AZaG68V3BK5TnKy6nIPrg_UEq_JMa?usp=sharing
 
 # Conclusão
 Como era esperado o programa concorrente possui tempo médio de execução mais rápido. Esse "ganho de tempo" é notório para os casos em que possuimos mais tarefas, cenário em que poupamos tempo dividindo as tarefas entre as threads. Um comportamento que vale destacar é que o programa sequencial executa a tarefa mais rápido do que o programa concorrente de 1 thread, isso se dá pela quantidade de instruções em cada implementação, em que o programa concorrente executa uma série de blocos "inúteis" para o caso de possuir 1 única thread, enquanto o programa sequencial não e, consequentemente, o programa sequencial calcula a multiplicação de A.B de forma mais direta e rápida.
