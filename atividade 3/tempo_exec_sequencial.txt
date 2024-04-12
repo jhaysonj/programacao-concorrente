@@ -1,0 +1,63 @@
+A_500x500 . B_500x500
+    Exec 1
+    Tempo de execução total: 0.343204 segundos
+    Tempo de inicialização: 0.009201 segundos
+    Tempo de processamento: 0.332502 segundos
+    Tempo de finalização: 0.001501 segundos
+
+    Exec 2
+    Tempo de execução total: 0.334899 segundos
+    Tempo de inicialização: 0.001061 segundos
+    Tempo de processamento: 0.332822 segundos
+    Tempo de finalização: 0.001016 segundos
+
+    Exec 3
+    Tempo de execução total: 0.334592 segundos
+    Tempo de inicialização: 0.001075 segundos
+    Tempo de processamento: 0.332475 segundos
+    Tempo de finalização: 0.001041 segundos
+
+A_1000x1000 . B_1000x1000
+    Exec 1
+    Tempo de execução total: 2.675780 segundos
+    Tempo de inicialização: 0.015046 segundos
+    Tempo de processamento: 2.654991 segundos
+    Tempo de finalização: 0.005744 segundos
+
+    Exec 2
+    Tempo de execução total: 2.657166 segundos
+    Tempo de inicialização: 0.003251 segundos
+    Tempo de processamento: 2.648144 segundos
+    Tempo de finalização: 0.005771 segundos
+
+    Exec 3
+    Tempo de execução total: 2.657294 segundos
+    Tempo de inicialização: 0.003206 segundos
+    Tempo de processamento: 2.650298 segundos
+    Tempo de finalização: 0.003790 segundos
+
+
+
+
+
+
+
+A_2000x2000 . B_2000x2000
+    Exec 1
+    Tempo de execução total: 22.379658 segundos
+    Tempo de inicialização: 0.025939 segundos
+    Tempo de processamento: 22.341898 segundos
+    Tempo de finalização: 0.011822 segundos
+
+
+    Exec 2
+    Tempo de execução total: 21.952817 segundos
+    Tempo de inicialização: 0.008571 segundos
+    Tempo de processamento: 21.930643 segundos
+    Tempo de finalização: 0.013604 segundos
+
+    Exec 3
+    Tempo de execução total: 22.272389 segundos
+    Tempo de inicialização: 0.008567 segundos
+    Tempo de processamento: 22.250113 segundos
+    Tempo de finalização: 0.013710 segundos

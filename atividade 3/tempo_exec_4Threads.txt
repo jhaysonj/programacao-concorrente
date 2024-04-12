@@ -1,0 +1,49 @@
+A_500x500 . B_500x500
+    Tempo de execução total: 0.104982 segundos
+    Tempo de inicialização: 0.001209 segundos
+    Tempo de processamento: 0.100225 segundos
+    Tempo de finalização: 0.003549 segundos
+
+    Tempo de execução total: 0.102434 segundos
+    Tempo de inicialização: 0.001128 segundos
+    Tempo de processamento: 0.100196 segundos
+    Tempo de finalização: 0.001110 segundos
+
+    Tempo de execução total: 0.102761 segundos
+    Tempo de inicialização: 0.001113 segundos
+    Tempo de processamento: 0.100591 segundos
+    Tempo de finalização: 0.001058 segundos
+
+A_1000x1000 . B_1000x1000
+    Tempo de execução total: 0.804443 segundos
+    Tempo de inicialização: 0.003092 segundos
+    Tempo de processamento: 0.797867 segundos
+    Tempo de finalização: 0.003484 segundos
+
+    Tempo de execução total: 0.806184 segundos
+    Tempo de inicialização: 0.003152 segundos
+    Tempo de processamento: 0.799175 segundos
+    Tempo de finalização: 0.003857 segundos
+
+    Tempo de execução total: 0.804580 segundos
+    Tempo de inicialização: 0.003186 segundos
+    Tempo de processamento: 0.797627 segundos
+    Tempo de finalização: 0.003767 segundos
+
+
+A_2000x2000 . B_2000x2000
+    Tempo de execução total: 6.588800 segundos
+    Tempo de inicialização: 0.008503 segundos
+    Tempo de processamento: 6.568247 segundos
+    Tempo de finalização: 0.012051 segundos
+
+    Tempo de execução total: 6.672059 segundos
+    Tempo de inicialização: 0.008896 segundos
+    Tempo de processamento: 6.648857 segundos
+    Tempo de finalização: 0.014306 segundos
+
+    Tempo de execução total: 6.741806 segundos
+    Tempo de inicialização: 0.008827 segundos
+    Tempo de processamento: 6.719288 segundos
+    Tempo de finalização: 0.013691 segundos
+

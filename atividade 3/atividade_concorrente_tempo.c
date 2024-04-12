@@ -176,14 +176,17 @@ void *thread_multiplicacao(void *args) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 4) {
+    if (argc != 5) {
         printf("Uso: %s <arquivo_1.bin> <arquivo_2.bin> <num_threads>\n", argv[0]);
         return 1;
     }
 
     // realiza medição do tempo (em segundos)
-    struct timespec start, end;
-    clock_gettime(CLOCK_MONOTONIC, &start);
+    struct timespec program_start, process_init, process_end, program_end;
+    double cpu_time_used, start_time, process_time, finalization_time;
+
+    // começa a contagem de inicialização
+    clock_gettime(CLOCK_MONOTONIC, &program_start);
 
     // realiza a leitura das matrizes A e B dos arquivos binários fornecidos como argumentos
     Matriz *matrizA = ler_matriz(argv[1]);
@@ -198,17 +201,31 @@ int main(int argc, char *argv[]) {
     }
 
 
+    // começa a contagem de tempo de processamento
+    clock_gettime(CLOCK_MONOTONIC, &process_init);
+
     // multiplicar as matrizes
     Matriz *resultado = multiplicar_matrizes(matrizA, matrizB, num_threads);
 
+    // finaliza a contagem de tempo de processamento
+    clock_gettime(CLOCK_MONOTONIC, &process_end);
 
-    // imprime a matriz resultante
-    printf("Resultado da multiplicação de A.B :\n");
-    for (int i = 0; i < resultado->linhas; i++) {
-        for (int j = 0; j < resultado->colunas; j++) {
-            printf("%f ", resultado->dados[i * resultado->colunas + j]);
-        }
-        printf("\n");
+    // escreve a matriz resultante no arquivo
+    FILE *descritorArquivo = fopen(argv[4], "wb");
+    if (!descritorArquivo)
+    {
+        fprintf(stderr, "Erro de abertura do arquivo\n");
+        return 3;
+    }
+    // escreve numero de linhas e de colunas
+    size_t ret = fwrite(&resultado->linhas, sizeof(int), 1, descritorArquivo);
+    ret = fwrite(&resultado->colunas, sizeof(int), 1, descritorArquivo);
+    // escreve os elementos da matriz
+    ret = fwrite(resultado->dados, sizeof(float), resultado->colunas * resultado->linhas, descritorArquivo);
+    if (ret < resultado->colunas * resultado->linhas)
+    {
+        fprintf(stderr, "Erro de escrita no arquivo\n");
+        return 4;
     }
 
     // libera memória alocada para as matrizes
@@ -217,12 +234,16 @@ int main(int argc, char *argv[]) {
     liberar_matriz(resultado);
 
 
-    
-    // finaliza a contagem do tempo (em segundos)
-    clock_gettime(CLOCK_MONOTONIC, &end);
-    double elapsedTime = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1.0e9; // segundos com precisão decimal 
-    printf("Tempo de execução: %f segundos\n", elapsedTime);
+    // finaliza a contagem do tempo (em segundos), para convertermos de nanosegundos para segundos dividimos por 1.0e9
+    clock_gettime(CLOCK_MONOTONIC, &program_end);
+    cpu_time_used = (program_end.tv_sec - program_start.tv_sec) + (program_end.tv_nsec - program_start.tv_nsec) / 1.0e9;  // segundos com precisão decimal 
+    start_time = (process_init.tv_sec - program_start.tv_sec) + (process_init.tv_nsec - program_start.tv_nsec) / 1.0e9;   // segundos com precisão decimal 
+    process_time = (process_end.tv_sec - process_init.tv_sec) + (process_end.tv_nsec - process_init.tv_nsec) / 1.0e9;     // segundos com precisão decimal 
+    finalization_time = (program_end.tv_sec - process_end.tv_sec) + (program_end.tv_nsec - process_end.tv_nsec) / 1.0e9;  // segundos com precisão decimal 
 
-
+    printf("Tempo de execução total: %f segundos\n", cpu_time_used);      // tempo total do programa
+    printf("Tempo de inicialização: %f segundos\n", start_time);          // tempo de inicialização
+    printf("Tempo de processamento: %f segundos\n", process_time);        // tempo do processamento
+    printf("Tempo de finalização: %f segundos\n", finalization_time);     // tempo de finalização
     return 0;
 }

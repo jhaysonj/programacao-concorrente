@@ -1,0 +1,57 @@
+A_500x500 . B_500x500
+    Tempo de execução total: 0.205222 segundos
+    Tempo de inicialização: 0.001100 segundos
+    Tempo de processamento: 0.200446 segundos
+    Tempo de finalização: 0.003676 segundos
+                                                                                                
+
+    Tempo de execução total: 0.203123 segundos
+    Tempo de inicialização: 0.001153 segundos
+    Tempo de processamento: 0.200856 segundos
+    Tempo de finalização: 0.001115 segundos
+                                                                                                
+
+    Tempo de execução total: 0.211665 segundos
+    Tempo de inicialização: 0.001129 segundos
+    Tempo de processamento: 0.209356 segundos
+    Tempo de finalização: 0.001181 segundos
+
+
+A_1000x1000 . B_1000x1000
+    Tempo de execução total: 1.600829 segundos
+    Tempo de inicialização: 0.003195 segundos
+    Tempo de processamento: 1.594146 segundos
+    Tempo de finalização: 0.003488 segundos
+                                                                                                
+
+    Tempo de execução total: 1.596127 segundos
+    Tempo de inicialização: 0.003149 segundos
+    Tempo de processamento: 1.589092 segundos
+    Tempo de finalização: 0.003886 segundos
+                                                                                                
+
+    Tempo de execução total: 1.601240 segundos
+    Tempo de inicialização: 0.003200 segundos
+    Tempo de processamento: 1.594264 segundos
+    Tempo de finalização: 0.003776 segundos
+
+
+A_2000x2000 . B_2000x2000
+    Tempo de execução total: 13.125521 segundos
+    Tempo de inicialização: 0.008631 segundos
+    Tempo de processamento: 13.104891 segundos
+    Tempo de finalização: 0.011999 segundos
+                                                                                                
+
+    Tempo de execução total: 13.197975 segundos
+    Tempo de inicialização: 0.008626 segundos
+    Tempo de processamento: 13.175553 segundos
+    Tempo de finalização: 0.013796 segundos
+                                                                                                
+
+    Tempo de execução total: 13.174198 segundos
+    Tempo de inicialização: 0.008494 segundos
+    Tempo de processamento: 13.151976 segundos
+    Tempo de finalização: 0.013728 segundos
+
+
