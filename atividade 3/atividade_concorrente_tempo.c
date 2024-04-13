@@ -3,6 +3,8 @@
 #include <pthread.h>
 #include <time.h>
 
+//#define teste // define a variavel de teste
+
 // definição da estrutura Matriz
 typedef struct {
     int linhas;
@@ -16,6 +18,8 @@ void liberar_matriz(Matriz *matriz);
 Matriz *ler_matriz(char *nome_arquivo);
 Matriz *multiplicar_matrizes(Matriz *matrizA, Matriz *matrizB, int num_threads);
 void *thread_multiplicacao(void *args);
+Matriz *ler_matriz_validacao(char *nome_arquivo);
+void validar_multiplicacao(Matriz *matrizA, Matriz *matrizB, Matriz *resultado, Matriz *matriz_validacao);
 
 // estrutura de argumentos para as threads
 typedef struct {
@@ -92,6 +96,11 @@ Matriz *ler_matriz(char *nome_arquivo) {
 
     fclose(arquivo);
     return matriz;
+}
+
+// função para ler uma matriz de validação do arquivo binário passado como parametro
+Matriz *ler_matriz_validacao(char *nome_arquivo) {
+    return ler_matriz(nome_arquivo);
 }
 
 // função para multiplicar duas matrizes
@@ -175,9 +184,30 @@ void *thread_multiplicacao(void *args) {
     pthread_exit(NULL);
 }
 
+// função para validar a multiplicação das matrizes
+void validar_multiplicacao(Matriz *matrizA, Matriz *matrizB, Matriz *resultado, Matriz *matriz_validacao) {
+    // verifica se as dimensões das matrizes são compatíveis
+    if (matrizA->linhas != matriz_validacao->linhas || matrizB->colunas != matriz_validacao->colunas) {
+        fprintf(stderr, "Erro: Dimensões da matriz de validação são diferentes das matrizes resultantes\n");
+        exit(1);
+    }
+
+    // verifica se cada elemento da matriz resultante é igual ao correspondente na matriz de validação
+    for (int i = 0; i < resultado->linhas; i++) {
+        for (int j = 0; j < resultado->colunas; j++) {
+            if (resultado->dados[i * resultado->colunas + j] != matriz_validacao->dados[i * matriz_validacao->colunas + j]) {
+                fprintf(stderr, "Erro: Multiplicação das matrizes não produziu o resultado esperado\n");
+                exit(1);
+            }
+        }
+    }
+
+    printf("Multiplicação das matrizes validada com sucesso!\n");
+}
+
 int main(int argc, char *argv[]) {
-    if (argc != 5) {
-        printf("Uso: %s <arquivo_1.bin> <arquivo_2.bin> <num_threads>\n", argv[0]);
+    if (argc != 6) {
+        printf("Uso: %s <arquivo_1.bin> <arquivo_2.bin> <num_threads> <saida.bin> <valida.bin>\n", argv[0]);
         return 1;
     }
 
@@ -200,7 +230,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-
     // começa a contagem de tempo de processamento
     clock_gettime(CLOCK_MONOTONIC, &process_init);
 
@@ -210,10 +239,17 @@ int main(int argc, char *argv[]) {
     // finaliza a contagem de tempo de processamento
     clock_gettime(CLOCK_MONOTONIC, &process_end);
 
+    // ler matriz de validação
+    Matriz *matriz_validacao = ler_matriz_validacao(argv[5]);
+
+#ifdef teste
+    // validar a multiplicação das matrizes
+    validar_multiplicacao(matrizA, matrizB, resultado, matriz_validacao);
+#endif
+
     // escreve a matriz resultante no arquivo
     FILE *descritorArquivo = fopen(argv[4], "wb");
-    if (!descritorArquivo)
-    {
+    if (!descritorArquivo) {
         fprintf(stderr, "Erro de abertura do arquivo\n");
         return 3;
     }
@@ -222,8 +258,7 @@ int main(int argc, char *argv[]) {
     ret = fwrite(&resultado->colunas, sizeof(int), 1, descritorArquivo);
     // escreve os elementos da matriz
     ret = fwrite(resultado->dados, sizeof(float), resultado->colunas * resultado->linhas, descritorArquivo);
-    if (ret < resultado->colunas * resultado->linhas)
-    {
+    if (ret < resultado->colunas * resultado->linhas) {
         fprintf(stderr, "Erro de escrita no arquivo\n");
         return 4;
     }
@@ -232,7 +267,7 @@ int main(int argc, char *argv[]) {
     liberar_matriz(matrizA);
     liberar_matriz(matrizB);
     liberar_matriz(resultado);
-
+    liberar_matriz(matriz_validacao);
 
     // finaliza a contagem do tempo (em segundos), para convertermos de nanosegundos para segundos dividimos por 1.0e9
     clock_gettime(CLOCK_MONOTONIC, &program_end);

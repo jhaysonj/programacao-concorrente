@@ -6,9 +6,36 @@
 Existem dois programas, o sequencial e o concorrente.
 
 Modo de execução do programa sequencial -> `./atividade_sequencial_tempo <Matriz1.bin> <Matriz2.bin> <resultado.bin>`<br><br>
-Modo de execução do programa concorrente -> `./atividade_concorrente_tempo <Matriz1.bin> <Matriz2.bin> <Numero_de_threads> <resultado.bin>`<br><br>
+Modo de execução do programa concorrente -> `./atividade_concorrente_tempo <Matriz1.bin> <Matriz2.bin> <Numero_de_threads> <saida.bin> <valida.bin>`<br><br>
 Na pasta `Matrizes Usadas` temos as matrizes usadas para calcular o tempo de execução, a multiplicação foi feita sempre na ordem MatrizA . MatrizB para termos uma base de comparação, em que medimos o tempo de execução realizando sempre as mesmas operações.
 
+## Parâmetros
+**No modelo sequencial, temos os seguintes argumentos (respectivamente):** 
+1) Matriz1.bin é a matriz A 
+2) Matriz2.bin é a matriz B  
+3) resultado.bin é o arquivo binário de saida que armazenará o resultado da matiplicação de A.B<br><br>
+
+
+**No modelo concorrente, temos os seguintes argumentos (respectivamente):** 
+1) Matriz1.bin é a matriz A
+2) Matriz2.bin é a matriz B 
+3) numero_de_threads é a quantidade de threads que será utilizada
+4) resultado.bin é o arquivo binário de saida em que será escrito o resultado da matiplicação de A.B 
+5) valida.bin é o arquivo binário que deve contar o resultado da multiplicação de A.B, ou seja, deve-se executar primeiro o código sequencial para obter esse arquivo. 
+
+
+# Teste Automático
+Para realizar o teste, devemos executar o programa sequencial e o ultimo argumento passado será o arquivo utilizado para validação do código concorrente.
+
+Exemplo arbitrário
+```
+./atividade_sequencial_tempo ./Matrizes\ Usadas/matrizA_2x2.bin ./Matrizes\ Usadas/matrizA_2x2.bin valida.bin
+```
+
+Checa o resultado da multiplicação:
+```
+./atividade_concorrente_tempo ./Matrizes\ Usadas/matrizA_2x2.bin ./Matrizes\ Usadas/matrizA_2x2.bin 1 saida.bin valida.bin
+```
 
 # Etapas de Idealição/Descrição da Atividade
 Nos códigos implementados, a multiplicação das matrizes é realizada na ordem em que as matrizes são passadas como argumentos. 
