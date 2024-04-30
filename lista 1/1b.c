@@ -6,25 +6,24 @@
 
 int termos;
 int M_THREADS;
-double aproxima_pi_global; // variável compartilhada entre as threads
+double aproxima_pi_global = 0.0; // variável compartilhada entre as threads
 pthread_mutex_t mutex; //variavel de lock para exclusao mutua
 
 // Função executada pelas threads
 void* aproxima_pi(void* arg) {
+    int thread_index = *(int*)arg; // deferencia o valor passado como parametro
     double aproxima_pi_local = 0;
-    
-    for(int i = 0; i<termos; i+=M_THREADS){
+    for(int i = thread_index; i<termos; i+=M_THREADS){
         aproxima_pi_local +=  ( (4.0 / (8 * i + 1) 
                 - 2.0 / (8 * i + 4) 
                 - 1.0 / (8 * i + 5) 
                 - 1.0 / (8 * i + 6)    ) 
                 * (1.0/pow(16,i))  );  
     }
-
     // realiza o lock para manipular variavel global
     pthread_mutex_lock(&mutex);
 
-    aproxima_pi_global = aproxima_pi_local;
+    aproxima_pi_global += aproxima_pi_local;
     
     // realiza o unlock liberando a variavel global
     pthread_mutex_unlock(&mutex);
@@ -54,12 +53,14 @@ int main(int argc, char* argv[]){
 
     // Array para identificadores de threads
     pthread_t tid_sistema[M_THREADS]; 
+    int thread_indices[M_THREADS]; // Array para índices das threads
 
     // loop de n termos para aproximar pi
     for(int i = 0; i<M_THREADS; i++){
-
-        // arg 1: referencia para identificador da thread       arg2: null      arg3: função executada pelas threads        arg4:argumento passado pra função
-        pthread_create(&tid_sistema[i], NULL, aproxima_pi, NULL);
+        thread_indices[i] = i;
+        // arg 1: referencia para identificador da thread       arg2: null      arg3: função executada pelas threads        
+        // arg4: argumento enviado à função que é executada pela thread, ( tem que ser ponteiro pra void) 
+        pthread_create(&tid_sistema[i], NULL, aproxima_pi, (void*)&thread_indices[i]);
     }
 
 
