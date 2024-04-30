@@ -1,17 +1,13 @@
 # Questão 2
 (a) O que é seção crítica do código em um programa concorrente?
-é um trecho do código executado por mais de uma thread em que ocorre leitura/escrita de uma variável compartilhada, permitindo que haja inconsistências por conta de diferentes fluxos de "baixo nivel" 
-de execução manipulando (lendo/escrevendo) sob uma mesma variável.
+é um trecho do código executado por mais de uma thread em que ocorre leitura/escrita de uma variável compartilhada, permitindo que haja inconsistências por conta de diferentes fluxos de "baixo nivel" de execução manipulando (lendo/escrevendo) sob uma mesma variável.
 
 (b) O que é corrida de dados em um programa concorrente?
-é o erro gerado pelo não tratamento seção crítica, ou seja, pela falta de sincronização. Neste caso, múltiplas threads podem escrever diferentes resultados sob uma mesma variável, mas 
-devido ao não tratamento, apenas uma das escritas sob essa variável é salvo, gerando assim um erro.
+é o erro gerado pelo não tratamento seção crítica, ou seja, pela falta de sincronização. Neste caso, múltiplas threads podem escrever diferentes resultados sob uma mesma variável, mas devido ao não tratamento, apenas uma das escritas sob essa variável é salvo, gerando assim um erro.
 
 (c) O que é violação da atomicidade em um programa concorrente?
-Atomicidade é quando o código torna as operações realizadas pelas threads atomicas, ou seja, apenas uma thread executa bloco do código, enquanto as outras threads esperam essa única thread
-terminar a execução de todo o bloco, com isso apenas uma variável manipula variáveis compartilhadas por vez.
-Com isso, definimos violar a atomicidade quando esse bloco que deveria ser "indivisivel" é interrompido antes de sua execução terminar por completo, levando a resultados incorretos e 
-incosistentes
+Atomicidade é quando o código torna as operações realizadas pelas threads atomicas, ou seja, apenas uma thread executa bloco do código, enquanto as outras threads esperam essa única thread terminar a execução de todo o bloco, com isso apenas uma thread manipula variáveis compartilhadas por vez.
+Com isso, definimos violar a atomicidade quando esse bloco que deveria ser "indivisivel" é interrompido antes de sua execução terminar por completo, levando a resultados incorretos e  incosistentes
 
 (d) o que é violação de ordem em um programa concorrente?
 são inconsistências de "baixo nivel" em que o hardware/compilador alteram a ordem das instruções para gerar otimização e com isso geram inconsistências.
@@ -25,7 +21,7 @@ thread 2:
 (4)    mov eax, 0
 (5)    mov ebx, 20
 
-no exemplo de violação de ordem é: se executarmos a instrução (1), (2), (5) e (3) , respectivamente, o resultado é diferente de executarmos (1), (2) e (3), também respectivamente.
+no exemplo de violação de ordem é: se executarmos a instrução (1), (2), (4) e (3)  soma vale 1, respectivamente, o resultado é diferente de executarmos (1), (2) e (3), soma vale 3 também respectivamente.
 
 
 
@@ -148,7 +144,15 @@ Para o valor 0, a ordem de execução é: (8), (9), (1) e (10)
 
 Para o valor 2, a ordem de execução é: (8), (9), (6) e (10)
 
-Para o valor -2, a ordem de execução é: (1), (2 e 6 ao "mesmo tempo", de forma que só uma escrita de x++ seja computada), (3), (4), (7) e (5)
+Para o valor -2, a ordem de execução é: (1), (2 e 6 ao "mesmo tempo", de forma que só uma escrita de x++ seja escrita na memória), (3), (4), (7) e (5)
 
 Para o valor 3, a ordem de execução é: (8), (9), (1 e 6 ao "mesmo tempo", de forma que só x++ seja escrita na memória), (2) e (10)
 
+
+
+# questão 5
+precisamos lockar a variável val, isso por que a thread 1 pode executar a instrução if(meuSaldo >= val) e quando for executar a instrução retira(val); qualquer outra thread pode ter escrito um outro valor em val
+
+lock()
+void* tarefa(void* arg)
+unlock()
