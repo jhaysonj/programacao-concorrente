@@ -92,7 +92,7 @@ unlock(identificador_thread, mutex)
 ```
 
 
-## caso 2
+## caso 2 (falta fazer)
 Nesse caso, também temos duas threads (Thread 1 e Thread 2). A Thread 2 só deveria acessar a variável mThread depois que ela fosse devidamente inicializada.
 
 (c) Proponha uma correção no código para garantir que essa condição seja sempre satisfeita.
@@ -112,3 +112,43 @@ void mMain(...) {
     // Mais código para executar...
 }
 ```
+
+
+Uma aplicação dispara três threads (T1, T2 e T3) para execução (códigos mostrados abaixo). Verifique se os valores 1, -1, 0, 2, -2, 3, -3, 4, -4 podem ser impressos na saida padrão quando essa aplicação é executada. Em caso afirmativo, mostre uma sequência de execução das threads que gere o valor correspondente:
+
+int x = 0; // variável global
+Thread 1:
+```
+(1)     x = x-1;
+(2)     x = x+1;
+(3)     x = x-1;
+(4)     if (x == -1)
+(5)         printf("%d",x);
+```
+
+Thread 2:
+```
+(6)     x = x+1;
+(7)     x = x-1;
+```
+
+Thread 3:
+```
+(8)     x = x+1;
+(9)     if(x == 1)
+(10)        printf("%d",x);
+```
+
+Para o valor 1, a ordem da execução é: (8), (9) e (10), respectivamente
+
+Para o valor -1, a ordem de execução é: (1), (2), (3) e (4)
+
+Para o valor 0, a ordem de execução é: (8), (9), (1) e (10)
+
+
+Para o valor 2, a ordem de execução é: (8), (9), (6) e (10)
+
+Para o valor -2, a ordem de execução é: (1), (2 e 6 ao "mesmo tempo", de forma que só uma escrita de x++ seja computada), (3), (4), (7) e (5)
+
+Para o valor 3, a ordem de execução é: (8), (9), (1 e 6 ao "mesmo tempo", de forma que só x++ seja escrita na memória), (2) e (10)
+
