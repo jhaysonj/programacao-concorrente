@@ -88,7 +88,7 @@ Portanto, a saída demonstra a execução correta do programa.
 
 # Atividade 2
 **Explicações gerais `gera_numeros.c`:**
-o arquivo `gera_numeros.c` é o responsável por gerar `n` números primos de 1 até n, do tipo long long int, armazenando-os em um arquivo binário que será utilizado pela implementação sequencial e concorrente
+o arquivo `gera_numeros.c` é o responsável por gerar `n` números de 1 até n, do tipo long long int, armazenando-os em um arquivo binário que será utilizado pela implementação sequencial e concorrente
 
 **Compilação:**
 ```
@@ -103,9 +103,25 @@ gcc -o gera_numeros gera_numeros.c -Wall
 ./gera_numeros 1000 lista_de_numeros
 ```
 
+**Explicações gerais `gera_numeros_aleatorios.c`:**
+o arquivo `gera_numeros.c` é o responsável por gerar `n` números aleatórios de 1 até 100.000, do tipo long long int, armazenando-os em um arquivo binário que será utilizado pela implementação sequencial e concorrente
+
+**Compilação:**
+```
+gcc -o gera_numeros_aleatorios gera_numeros_aleatorios.c -Wall
+```
+**Execução:**
+```
+./gera_numeros <quantidade_termos> <arquivo_de_saida>
+```
+**Exemplo:** 
+```
+./gera_numeros_aleatorios 1000 lista_de_numeros_aleatorios
+```
+
 
 **Explicações gerais `valida_gera_numeros.c`** 
-O arquivo `valida_gera_numeros.c` serve para printar o conteudo do binário gerado no arquivo `gera_numeros.c`, validando que a escrita foi feita corretamente
+O arquivo `valida_gera_numeros.c` serve para printar o conteudo do binário gerado pelos arquivos `gera_numeros.c` e `gera_numeros_aleatorios.c`, validando que a escrita foi feita corretamente
 Compilação: 
 ```
 gcc -o valida_gera_numeros valida_gera_numeros.c -Wall
